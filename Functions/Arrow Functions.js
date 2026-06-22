@@ -1,4 +1,4 @@
-//коментар
+
 
 function ask(question, yes, no) {
   if (confirm(question)) yes();
@@ -10,3 +10,4 @@ ask(
   () => alert("You agreed."),
   () => alert("You canceled the execution.")
 );
+// komentar
