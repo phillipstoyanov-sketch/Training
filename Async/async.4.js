@@ -1,0 +1,29 @@
+function customPromiseAllWait(promises) {
+  return new Promise((resolve, reject) => {
+    const results = new Array(promises.length);
+    let settledCount = 0;
+    let firstError = null;
+
+    promises.forEach((promise, index) => {
+      Promise.resolve(promise)
+        .then(result => {
+          results[index] = result;
+        })
+        .catch(error => {
+          if (firstError === null) {
+            firstError = error;
+          }
+        })
+        .finally(() => {
+          settledCount++;
+          if (settledCount === promises.length) {
+            if (firstError !== null) {
+              reject(firstError);
+            } else {
+              resolve(results);
+            }
+          }
+        });
+    });
+  });
+}
